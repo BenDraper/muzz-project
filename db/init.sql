@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS Users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS Decisions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    actor_id INT NOT NULL,
+    recipient_id INT NOT NULL,
+    liked BOOLEAN NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_Decisions (actor_id, recipient_id),
+    FOREIGN KEY (actor_id) REFERENCES Users(id) ON DELETE CASCADE,
+    FOREIGN KEY (recipient_id) REFERENCES Users(id) ON DELETE CASCADE
+);
